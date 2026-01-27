@@ -97,16 +97,21 @@ Managing these separately leads to duplicated logic, configuration drift and sub
     <td>gzip via a single flag</td>
   </tr>
 
+
   <tr>
-  <td>Logging</td>
-  <td>Improved</td>
-  <td>
-    Structured, lifecycle-aware logs with adapter, manager and fallback visibility.
-    Designed for production debugging without leaking sensitive data.
-  </td>
-</tr>
+    <td>Logging</td>
+    <td>Improved</td>
+    <td>
+      Structured, lifecycle-aware logs with adapter, manager and fallback visibility.
+      Designed for production debugging without leaking sensitive data.
+    </td>
+  </tr>
 
-
+  <tr>
+    <td>Account Lockout</td>
+    <td>Stable</td>
+    <td>Brute-force protection for login endpoints</td>
+  </tr>
 </table>
 
 <hr/>
@@ -172,12 +177,27 @@ const isValid = await DefendJS.verify(password, hash);
 );
 </code></pre>
 
+
 <h3>Rate Limiting</h3>
 
 <pre><code>DefendJS.rateLimit({ max: 5, windowMs: 15 * 60 * 1000 });
 </code></pre>
 
+<h3>Account Lockout</h3>
 
+<pre><code>// In your login controller
+const status = await DefendJS.lockout.increment(email);
+
+if (status.isLocked) {
+  return res.status(429).json({
+    error: `Account locked. Try again in ${status.retryAfter} seconds.`
+  });
+}
+
+// ... verify password ...
+// On success:
+await DefendJS.lockout.reset(email);
+</code></pre>
 
 <hr/>
 
