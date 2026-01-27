@@ -143,10 +143,10 @@ Managing these separately leads to duplicated logic, configuration drift and sub
 
 <h2>Quick Start</h2>
 
-<pre><code>npm install defend_js</code></pre>
+<pre><code>npm install hi-defendjs</code></pre>
 
 <pre><code>import express from "express";
-import { DefendJS } from "defend_js";
+import { DefendJS } from "hi-defendjs";
 
 const app = express();
 
@@ -364,7 +364,7 @@ Choose the style based on complexity and ownership.
 
 <h4>express-validator (Rule-Based, Inline)</h4>
 
-<pre><code>import { DefendJS , body } from "defend_js";
+<pre><code>import { DefendJS , body } from "hi-defendjs";
 
 router.post(
   "/register",
@@ -386,7 +386,7 @@ router.post(
 
 <h4>Zod (Schema-Based, Reusable)</h4>
 
-<pre><code>import { DefendJS , z } from "defend_js";
+<pre><code>import { DefendJS , z } from "hi-defendjs";
 
 const registerSchema = z.object({
   email: z.string().email(),
@@ -519,7 +519,7 @@ It covers signup, JWT login, Google login, role-based access control, and proper
 
 <pre><code>import express from "express";
 import dotenv from "dotenv";
-import { DefendJS } from "defend_js";
+import { DefendJS } from "hi-defendjs";
 import authRoutes from "./routes/auth.routes.js";
 
 dotenv.config();
@@ -559,7 +559,7 @@ import {
   loginWithJwt,
   loginWithGoogle
 } from "../controllers/auth.controller.js";
-import { DefendJS } from "defend_js";
+import { DefendJS } from "hi-defendjs";
 
 const router = Router();
 
@@ -583,13 +583,13 @@ export default router;
 <h4>Signup (Email and Password)</h4>
 
 <pre><code>
-import { DefendJS } from "defend_js";
+import { DefendJS } from "hi-defendjs";
 import { HttpError } from "../core/errors/HttpError.js";
 import User from "../models/User.js";
 
 
 const JWT_OPTIONS = {
-    issuer: 'defend_js-backend',
+    issuer: 'hi-defendjs-backend',
     audience: ['web-app', 'mobile-app'],
     expiresIn: '7d',
     subject: 'user-authentication'
