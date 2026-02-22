@@ -163,6 +163,12 @@ app.listen(3000);
 
 <pre><code>const hash = await DefendJS.hash(password);
 const isValid = await DefendJS.verify(password, hash);
+
+// Auto-upgrade legacy hashes (e.g., bcrypt to argon2)
+if (await DefendJS.hash.needsRehash(hash)) {
+  const newHash = await DefendJS.hash(password);
+  // Save newHash to database
+}
 </code></pre>
 
 

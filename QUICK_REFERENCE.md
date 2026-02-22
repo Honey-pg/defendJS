@@ -141,6 +141,13 @@ const hash = await DefendJS.hash(password);
 
 // Verify password
 const isValid = await DefendJS.verify(password, hash);
+
+// Check if hash needs upgrading (e.g., bcrypt -> argon2)
+const needsUpgrade = await DefendJS.hash.needsRehash(hash);
+if (needsUpgrade) {
+    const newHash = await DefendJS.hash(password);
+    // Save newHash to database
+}
 ```
 
 ### JWT Operations
