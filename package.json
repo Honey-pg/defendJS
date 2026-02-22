@@ -1,6 +1,6 @@
 {
     "name": "hi-defendjs",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "description": "Unified security layer for Express.js: authentication, validation, sanitization, rate limiting, CORS, lockout, CSRF protection and request tracing",
     "license": "MIT",
     "main": "dist/index.js",
