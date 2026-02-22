@@ -5,6 +5,7 @@ import { logger } from "../logging";
 interface HashAdapter {
     hash(value: string): Promise<string>;
     verify(value: string, hashed: string): Promise<boolean>;
+    needsRehash?(hashed: string): boolean | Promise<boolean>;
 }
 
 export interface HashResult {
@@ -34,7 +35,7 @@ export class HashManager {
         });
     }
 
-   
+
     private detectAlgorithm(hashed: string): string {
         if (hashed.startsWith("$argon2")) return "argon2";
         if (
@@ -107,7 +108,7 @@ export class HashManager {
         }
     }
 
-    
+
     async verify(value: string, hashed: string): Promise<boolean> {
         const algorithm = this.detectAlgorithm(hashed);
 
@@ -131,5 +132,29 @@ export class HashManager {
         throw new AdapterError(
             `No adapter configured for detected hash algorithm: ${algorithm}`
         );
+    }
+
+    async needsRehash(hashed: string): Promise<boolean> {
+        if (!hashed) return true;
+
+        try {
+            const algorithm = this.detectAlgorithm(hashed);
+
+            // If the hash algorithm doesn't match the primary, it definitely needs a rehash
+            if (algorithm !== this.config.primary) {
+                return true;
+            }
+
+            // Otherwise, ask the primary adapter if its own parameters have changed
+            if (this.primaryAdapter.needsRehash) {
+                return await this.primaryAdapter.needsRehash(hashed);
+            }
+
+            // If primary adapter cannot check needsRehash, assume false to avoid infinite rehashes
+            return false;
+        } catch (err) {
+            // If algorithm is undetected or corrupted, it needs rehashing
+            return true;
+        }
     }
 }

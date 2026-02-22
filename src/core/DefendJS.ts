@@ -171,11 +171,18 @@ export class DefendJS {
 
     // Utilities
 
-    static async hash(value: string): Promise<string> {
-        const instance = this.getInstance();
-        const result = await instance.hashManager.hash(value, { allowFallback: true });
-        return result.hash;
-    }
+    static hash = Object.assign(
+        async (value: string): Promise<string> => {
+            const instance = DefendJS.getInstance();
+            const result = await instance.hashManager.hash(value, { allowFallback: true });
+            return result.hash;
+        },
+        {
+            needsRehash: async (hashed: string): Promise<boolean> => {
+                return DefendJS.getInstance().hashManager.needsRehash(hashed);
+            }
+        }
+    );
 
     static async verify(value: string, hash: string): Promise<boolean> {
         return this.getInstance().hashManager.verify(value, hash);

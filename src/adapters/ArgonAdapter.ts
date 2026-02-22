@@ -42,4 +42,18 @@ export class ArgonAdapter {
             throw new AdapterError("Argon2 verify failed.");
         }
     }
+
+    needsRehash(hashed: string): boolean {
+        try {
+            return argon2.needsRehash(hashed, this.options);
+        } catch (err: any) {
+            logger.error("Argon2 needsRehash check failed", {
+                adapter: "argon2",
+                operation: "needsRehash",
+                reason: err?.message
+            });
+            // If we can't parse it (e.g., malformed or unsupported), assume it needs rehashing
+            return true;
+        }
+    }
 }
