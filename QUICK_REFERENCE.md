@@ -15,7 +15,6 @@ A **unified security middleware library** for Express.js that combines:
 - Request Parsing (JSON, URL-encoded)
 
 **One dependency. One middleware. Complete security.**
-
 ---
 
 ## 🏗️ Architecture at a Glance
