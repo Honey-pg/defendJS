@@ -23,7 +23,7 @@ Managing these separately leads to duplicated logic, configuration drift and sub
 <ul>
   <li>Password hashing (Argon2 with bcrypt fallback)</li>
   <li>JWT authentication and route protection</li>
-  <li>Google login (ID token verification)</li>
+  <li>Google login(ID token verification)</li>
   <li>Request validation and sanitization</li>
   <li>Rate limiting and abuse prevention</li>
   <li>CORS, security headers and compression</li>
