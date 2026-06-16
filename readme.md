@@ -1,5 +1,5 @@
 <h1 align="center">🛡️ DefendJS</h1>
-<p align="center"><strong>One-line security for Express.Js</strong></p>
+<p align="center"><strong>One-line security for Express.js</strong></p>
 
 <p align="center">
 DefendJS unifies authentication, validation, sanitization, rate-limiting, headers, CSRF protection, request tracing and parsing<br/>
