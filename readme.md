@@ -1,4 +1,4 @@
-<h1 align="center">🛡️ DefendjS </h1>
+<h1 align="center">🛡️ DefendjS</h1>
 <p align="center"><strong>One-line security for Express.js</strong></p>
 
 <p align="center">
